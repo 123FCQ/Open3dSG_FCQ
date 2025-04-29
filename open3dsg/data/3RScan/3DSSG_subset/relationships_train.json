@@ -1,0 +1,65 @@
+{
+  "scan": "7272e16c-a01b-20f6-8961-a0927b4a7629",
+  "splits": [
+    {
+      "split": 2,
+      "objects": {
+        "19": "towel",
+        "33": "towel",
+        "3": "wall",
+        "4": "wall",
+        "5": "floor",
+        "6": "toilet",
+        "23": "wall",
+        "30": "shelf",
+        "31": "mirror"
+      },
+      "relationships": [
+        [33, 30, 1, "supported by"],
+        [30, 4, 14, "attached to"],
+        [31, 4, 14, "attached to"],
+        [3, 5, 14, "attached to"],
+        [4, 5, 14, "attached to"],
+        [6, 5, 15, "standing on"],
+        [19, 3, 14, "attached to"],
+        [23, 5, 14, "attached to"]
+      ]
+    },
+    {
+      "split": 1,
+      "objects": {
+        "16": "desk",
+        "1": "floor",
+        "21": "vase",
+        "6": "ceiling",
+        "17": "lamp",
+        "8": "wall",
+        "9": "wall",
+        "12": "couch",
+        "5": "wall"
+      },
+      "relationships": [
+        [5, 1, 14, "attached to"],
+        [6, 5, 14, "attached to"],
+        [6, 8, 14, "attached to"],
+        [6, 9, 14, "attached to"],
+        [8, 1, 14, "attached to"],
+        [9, 1, 14, "attached to"],
+        [12, 1, 15, "standing on"],
+        [16, 1, 15, "standing on"],
+        [17, 16, 15, "standing on"],
+        [21, 16, 15, "standing on"],
+        [12, 16, 3, "right"],
+        [12, 16, 6, "close by"],
+        [12, 16, 4, "front"],
+        [16, 12, 5, "behind"],
+        [16, 12, 6, "close by"],
+        [16, 12, 2, "left"],
+        [17, 21, 3, "right"],
+        [17, 21, 4, "front"],
+        [21, 17, 5, "behind"],
+        [21, 17, 2, "left"]
+      ]
+    }
+  ]
+}
