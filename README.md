@@ -19,6 +19,11 @@
   <h3 align="center"><a href="https://arxiv.org/abs/2402.12259">Paper</a> | <a href="https://kochsebastian.com/open3dsg">Project Page</a></h3>
   <div align="center"></div>
 </p>
+
+## Disclaimer
+
+**Important**: I am not the original author of this repository. This is a modified version of the original Open3DSG project. The original work and research belongs to Sebastian Koch, Narunas Vaskevicius, Mirco Colosi, Pedro Hermosilla, and Timo Ropinski. I have made modifications to the original codebase for my own purposes. Please refer to the original repository and paper for the authoritative implementation.
+
 <p align="center">
   <a href="">
     <img src="https://github.com/kochsebastian/kochsebastian.github.io/blob/master/media/open3dsg/teaser.png?raw=true" alt="Logo" width="85%">
