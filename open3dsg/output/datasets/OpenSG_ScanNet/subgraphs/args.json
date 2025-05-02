@@ -1,5 +1,5 @@
 {
-  "type": "train",
+  "type": "val",
   "relation": "relationships",
   "target_scan": "",
   "label_type": "ScanNet200",

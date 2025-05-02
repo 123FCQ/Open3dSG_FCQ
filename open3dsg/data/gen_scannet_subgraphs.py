@@ -29,8 +29,8 @@ from open3dsg.util.scannet200 import nyu2scannet
 def Parser(add_help=True):
     parser = argparse.ArgumentParser(description='Process some integers.', formatter_class=argparse.ArgumentDefaultsHelpFormatter,
                                      add_help=add_help)
-    parser.add_argument('--type', type=str, default='validation',
-                        choices=['train', 'test', 'validation'], help="allow multiple rel pred outputs per pair", required=False)
+    parser.add_argument('--type', type=str, default='val',
+                        choices=['train', 'test', 'val'], help="allow multiple rel pred outputs per pair", required=False)
     parser.add_argument('--relation', type=str, default='relationships', choices=['relationships_extended', 'relationships'])
     parser.add_argument('--target_scan', type=str, default='', help='')
     parser.add_argument('--label_type', type=str, default='ScanNet200', choices=['ScanNet20', 'ScanNet200'], help='label', required=False)
@@ -279,7 +279,7 @@ if __name__ == '__main__':
 
     if args.type == 'train':
         scan_ids = util_misc.read_txt_to_list(define.SCANNET_SPLIT_TRAIN)
-    elif args.type == 'validation':
+    elif args.type == 'val':
         scan_ids = util_misc.read_txt_to_list(define.SCANNET_SPLIT_VAL)
 
     valid_scans = list()
