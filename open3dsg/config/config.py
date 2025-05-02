@@ -29,7 +29,7 @@ CONF.PATH.SCANNET_RAW2D = os.path.join(CONF.PATH.SCANNET_RAW, "scannet_2d")  # S
 # Processed Dataset
 # CONF.PATH.R3SCAN = os.path.join(CONF.PATH.DATA, "OpenSG_3RScan")
 # CONF.PATH.SCANNET = os.path.join(CONF.PATH.DATA, "OpenSG_ScanNet")
-CONF.PATH.DATA_OUT = "Open3dSG_FCQ/open3dsg/data_out"  # Output directory for processed datasets
+CONF.PATH.DATA_OUT = "/root/lanyun-tmp/Open3dSG_FCQ/open3dsg/output"  # Output directory for processed datasets
 CONF.PATH.R3SCAN = os.path.join(CONF.PATH.DATA_OUT, "datasets", "OpenSG_3RScan")  # Output directory for processed 3RScan dataset
 CONF.PATH.SCANNET = os.path.join(CONF.PATH.DATA_OUT, "datasets", "OpenSG_ScanNet")  # Output directory for processed ScanNet dataset
 CONF.PATH.CHECKPOINTS = os.path.join(CONF.PATH.DATA_OUT, "checkpoints")

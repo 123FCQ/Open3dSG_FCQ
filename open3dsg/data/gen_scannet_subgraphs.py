@@ -258,7 +258,7 @@ if __name__ == '__main__':
     print("Generating ScanNet subgraphs")
     args = Parser().parse_args()
     debug = args.debug
-    if args.search_method == 'BBOX':
+    if args.search_method == 'BBOX': # 分割场景图的方法
         search_method = SAMPLE_METHODS.BBOX
     elif args.search_method == 'KNN':
         search_method = SAMPLE_METHODS.RADIUS
