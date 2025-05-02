@@ -262,8 +262,10 @@ def read_scan_info_scannet(scan_id, mode='depth'):
         extrinsic = np.matrix(read_extrinsic(extrinsic_path))
         extrinsic_list.append(extrinsic)
     # pylint: enable=consider-using-enumerate
-
-    return np.array(image_list), np.array(color_list), np.array(extrinsic_list), intrinsic_info, colors
+#     读取深度图像，并将其重塑为一维数组添加到image_list
+#     读取彩色图像，并将其从BGR转换为RGB格式后添加到color_list
+#     读取相机外参（姿态矩阵），并添加到extrinsic_list
+    return np.array(image_list), np.array(color_list), np.array(extrinsic_list), intrinsic_info, colors # 最后两个参数是内参信息字典（为空）以及彩色图像的文件名列表
 
 #############################
 
@@ -356,7 +358,7 @@ def run(scan, scene_data, export_path, dataset):
         pc_i, instances_i = read_pointcloud_R3SCAN(scan)
         image_list, color_list, extrinsic_list, intrinsic_info, img_names = read_scan_info_R3SCAN(scan)
     else:
-        pc_i, labels_i, instances_i = read_pointcloud_scannet(scan)
+        pc_i, labels_i, instances_i = read_pointcloud_scannet(scan) # 读取scannet的点云数据，返回点云数据，语义ID，实例ID
         instance_names = dict(zip(instances_i, labels_i))
         image_list, color_list, extrinsic_list, intrinsic_info, img_names = read_scan_info_scannet(scan)
         intrinsic_info['m_intrinsic'] = np.loadtxt(os.path.join(CONF.PATH.SCANNET_RAW2D, 'intrinsics.txt'))
@@ -364,12 +366,17 @@ def run(scan, scene_data, export_path, dataset):
 
     object2frame = image_3d_mapping(scan, image_list, color_list, img_names, pc_i, instances_i, extrinsic_list,
                                     intrinsic_info['m_intrinsic'], instance_names, intrinsic_info['m_Width'], intrinsic_info['m_Height'], 0, 0.20, scene_data)
-    if object2frame:
+    if object2frame: 
         lock.acquire()
         with open(output_filepath, "wb") as f:
             pickle.dump(object2frame, f, protocol=pickle.HIGHEST_PROTOCOL)
         lock.release()
-
+    # object2frame是字典，记录了每个场景中的每个实例在图像（每隔20帧选一张）中的相关信息有4个值，比如下面的例子
+    # 0 = '0.jpg' - 图像文件名，表示这是第0张图片
+    # 1 = 4161 - 可见像素数量，表示该物体在这张图像中有4161个像素点被成功投影
+    # 2 = 0.13254969418960244 - 可见性比例(ratio)，表示物体大约13.25%的3D点成功投影到了这张图像中
+    # 3 = (110, 65, 319, 161) - 边界框坐标，格式为(xmin, ymin, xmax, ymax)，表示物体在图像中的边界框位置
+    # 4 = array([[65, 280], ...]) - 唯一像素映射位置的数组，每个元素是一个[y, x]坐标对，表示物体在图像中的具体像素位置
 
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser()
@@ -389,14 +396,14 @@ if __name__ == '__main__':
     else:
         root = os.path.join(CONF.PATH.R3SCAN_RAW, "3DSSG_subset")
 
-    scene_data, selected_scans = read_json(root, mode)
+    scene_data, selected_scans = read_json(root, mode) # 读取relationship.json文件,scene_data是字典，记录了每个场景中包含的实例以及实例之间的关系，合并了所有子图的结果
     export_path = os.path.join(export_path, "views")
 
     scans = sorted(list(scene_data.keys()))
     print("Storing views in: ", export_path)
 
     skip_existing = True
-    use_sam = False
+    use_sam = False  # 是否使用SAM（Segment Anything Model）来改进物体在图像中的分割结果
     if args.parallel:
         process_map(partial(run, scene_data=scene_data, export_path=export_path, dataset=dataset), scans, max_workers=8, chunksize=4)
     else:
