@@ -13,8 +13,8 @@ CONF = EasyDict()
 # path
 CONF.PATH = EasyDict()
 CONF.PATH.HOME = "/root/lanyun-tmp"  # Your home directory
-CONF.PATH.BASE = "Open3dSG_FCQ"  # OpenSG directory
-CONF.PATH.DATA = "Open3dSG_FCQ/open3dsg/data"  # Root path for datasets
+CONF.PATH.BASE = "/root/lanyun-tmp/Open3dSG_FCQ"  # OpenSG directory
+CONF.PATH.DATA = "/root/lanyun-tmp/Open3dSG_FCQ/open3dsg/data"  # Root path for datasets
 
 # append to syspath
 for _, path in CONF.PATH.items():
