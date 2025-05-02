@@ -85,3 +85,17 @@ def find_neighbors(points, segments, search_method: SAMPLE_METHODS, receptive_fi
             neighbors = [int(n) for n in neighbors]
             segs_neighbors[int(seg_idx)] = neighbors
     return segs_neighbors
+ 
+# 邻居搜索方法
+# 根据指定的搜索方法执行一下两种搜索之一：
+
+# BBOX方法(边界框搜索):
+
+# 对于每个分割，检查其边界框是否与其他分割的边界框重叠
+# 如果边界框重叠，则将这两个分割视为邻居
+
+
+# RADIUS方法(半径搜索):
+
+# 对于每个分割，检查其点是否在其他分割的接收场半径内
+# 如果在半径内找到点，则将这两个分割视为邻居

@@ -159,10 +159,10 @@ def process(scan_id, pth_3RScan, split_scene=True):
     pth_agg = os.path.join(pth_3RScan, scan_id, scan_id + ".aggregation.json")
     pth_seg = pth_semseg_file
     pth_info = os.path.join(pth_3RScan, scan_id, scan_id + ".txt")
-    cloud_gt, points_gt, _, segments_gt = dataLoaderScanNet.load_scannet(pth_ply, pth_agg, pth_seg)
-    labels_gt200, segments_gt200 = nyu2scannet(scan_id, pth_ply, pth_seg, pth_agg, pth_info)
+    cloud_gt, points_gt, _, segments_gt = dataLoaderScanNet.load_scannet(pth_ply, pth_agg, pth_seg) # 返回plydata点云数据, points顶点坐标, labels, instances，其中label是语义分割信息依旧是nyu40的标签体系，instance是实例分割信息
+    labels_gt200, segments_gt200 = nyu2scannet(scan_id, pth_ply, pth_seg, pth_agg, pth_info) # labels_gt200将nyu40的标签转换为scannet200的标签体系 segments_gt200和segments_gt的完全相同
 
-    segs_neighbors = find_neighbors(points_gt, segments_gt, search_method, receptive_field=args.radius_receptive)
+    segs_neighbors = find_neighbors(points_gt, segments_gt, search_method, receptive_field=args.radius_receptive) # 记录每个具体实例的邻居实例
     relationships_new['neighbors'][scan_id] = segs_neighbors
 
     segment_ids = np.unique(segments_gt)
@@ -175,20 +175,20 @@ def process(scan_id, pth_3RScan, split_scene=True):
             pth_ply, pth_agg, pth_seg, label_name_mapping)
     elif args.label_type == "ScanNet200":
         instance2labelName = util_misc.load_semseg_scannet200(
-            labels_gt200, segments_gt200)
+            labels_gt200, segments_gt200) # 记录instance 到  label（scannet200）的映射 确保每个场景中表示同一类物体（比如桌子）的只有一个语义。比如实例ID7 8都表示桌子但是不是同一个对应的都是同一个label“table”
     else:
         raise RuntimeError("Label type not supported")
 
     if split_scene:
         seg_groups = generate_groups(cloud_gt, segments_gt, args.radius_seed, args.radius_receptive, args.min_segs,
-                                     segs_neighbors=segs_neighbors, instance2label=instance2labelName)
+                                     segs_neighbors=segs_neighbors, instance2label=instance2labelName) # 记录了将某个场景图中的所有实例分成多个组，每个组中包含的实例数量在5-9之间，是列表的列表
         if args.verbose:
             print('final segGroups:', len(seg_groups))
     else:
         seg_groups = None
 
     #  Find and count all corresponding segments#
-    size_segments_gt = dict()
+    size_segments_gt = dict() # 记录每个实例包含点的数量
     map_segment_pd_2_gt = dict()  # map segment_pd to segment_gt
     for segment_id in segment_ids:
         segment_indices = np.where(segments_gt == segment_id)[0]
@@ -209,8 +209,8 @@ def process(scan_id, pth_3RScan, split_scene=True):
     # ' Save as relationship_*.json #
     list_relationships = list()
     if seg_groups is not None:
-        for split_id, seg_group in enumerate(seg_groups):
-            relationships = gen_relationship(scan_id, split_id, map_segment_pd_2_gt, instance2labelName, seg_group)
+        for split_id, seg_group in enumerate(seg_groups): # 子图的索引和子图包含的实例ID
+            relationships = gen_relationship(scan_id, split_id, map_segment_pd_2_gt, instance2labelName, seg_group) # 生成类似3RScan中的relationship.json文件,记录每个场景中中的子图包含的实例以及和其他实例之间的关系  
             if len(relationships["objects"]) == 0:
                 continue
             list_relationships.append(relationships)
