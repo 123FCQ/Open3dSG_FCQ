@@ -8,7 +8,9 @@ import os
 # args = 'python open3dsg/data/gen_scannet_subgraphs.py --type train'
 # args = 'python open3dsg/data/gen_scannet_subgraphs.py --type val'
 # args = 'python open3dsg/data/get_object_frame.py --mode train --dataset SCANNET'
-args = 'python open3dsg/data/get_object_frame.py --mode train --dataset R3SCAN'
+# args = 'python open3dsg/data/get_object_frame.py --mode train --dataset R3SCAN'
+args = 'python open3dsg/data/get_object_frame.py --mode validation --dataset R3SCAN'
+# args = 'python open3dsg/data/preprocess_3rscan.py' 
 args = args.split()
 if args[0] == 'python':
     """pop up the first in the args""" 
