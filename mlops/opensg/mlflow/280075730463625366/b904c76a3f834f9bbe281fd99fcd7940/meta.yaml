@@ -1,0 +1,14 @@
+artifact_uri: file:///root/lanyun-tmp/Open3dSG_FCQ/mlops/opensg/mlflow/280075730463625366/b904c76a3f834f9bbe281fd99fcd7940/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '280075730463625366'
+lifecycle_stage: active
+run_id: b904c76a3f834f9bbe281fd99fcd7940
+run_name: energetic-island-9043
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750669898765
+status: 1
+tags: []
+user_id: root

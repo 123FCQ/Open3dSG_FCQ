@@ -1,0 +1,12 @@
+m_versionNumber = 4
+m_sensorName = tangoDevice (calibrated)
+m_colorWidth = 960
+m_colorHeight = 540
+m_depthWidth = 224
+m_depthHeight = 172
+m_depthShift = 1000
+m_calibrationColorIntrinsic = 762.052 0 494.606 0 0 761.084 270.309 0 0 0 1 0 0 0 0 1 
+m_calibrationColorExtrinsic = 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+m_calibrationDepthIntrinsic = 177.812 0 115.013 0 0 242.419 85.7567 0 0 0 1 0 0 0 0 1 
+m_calibrationDepthExtrinsic = 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+m_frames.size = 471

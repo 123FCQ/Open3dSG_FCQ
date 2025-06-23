@@ -327,9 +327,22 @@ class Preprocessor():
                     point1 = s[point1_idx, :3]
                     point2 = o[point2_idx, :3]
                     dist_min = point2 - point1
-                except:
-                    print(scan_id)
+                except Exception as e:
+                    print(f"=== 调试信息 for {scan_id} ===")
+                    print(f"错误类型: {type(e).__name__}")
+                    print(f"错误信息: {e}")
+                    print(f"当前关系对索引: {index}")
+                    if index < len(pairs):
+                        print(f"当前关系对: {pairs[index]}")
+                    print(f"联合点云形状: {pcl.shape}")
+                    print(f"联合点云中的标签分布: {np.unique(pcl[:, -1], return_counts=True)}")
+                    print(f"主体对象点数: {len(s)}")
+                    print(f"客体对象点数: {len(o)}")
+                    print("=" * 40)
                     return
+                # except:
+                #     print(scan_id)
+                #     return
 
                 pcl = farthest_point_sample(pcl, rel_sample)
                 pcl_norm, _, _ = pcl_normalize(pcl)
@@ -435,5 +448,5 @@ if __name__ == '__main__':
     if args.parallel:
         process_map(processor.write_pickle, relationships, max_workers=16, chunksize=1)
     else:
-        for r in tqdm(relationships):
+        for r in tqdm(relationships): # r = 
             processor.write_pickle(r)

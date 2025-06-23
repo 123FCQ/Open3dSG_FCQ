@@ -1,0 +1,14 @@
+artifact_uri: file:///root/lanyun-tmp/Open3dSG_FCQ/mlops/opensg/mlflow/280075730463625366/c1f1de6ca8054f90bc11b5b89329d2b7/artifacts
+end_time: 1750670103005
+entry_point_name: ''
+experiment_id: '280075730463625366'
+lifecycle_stage: active
+run_id: c1f1de6ca8054f90bc11b5b89329d2b7
+run_name: impressive-rainforest-3738
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750670100904
+status: 4
+tags: []
+user_id: root
